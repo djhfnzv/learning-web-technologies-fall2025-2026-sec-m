@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Validating HTML by using JavaScript</title>
+</head>
+<body>
+    <p>Blood Group</p>
+    <select id="bloodGroup" name="dropdown" value="">
+        <option>Select One</option>
+        <option>A+</option>
+        <option>A-</option>
+        <option>B+</option>
+        <option>B-</option>
+        <option>AB+</option>
+        <option>AB-</option>
+        <option>O+</option>
+        <option>O-</option>
+    </select>
+    <p id="bgError" style="color:red;"></p>
+
+    <input type="button" value="Submit" onclick="test()">
+
+    <script>
+        function test() {
+            let bloodGroup = document.getElementById("bloodGroup").value;
+            let bgError = document.getElementById("bgError");
+
+            if ( bloodGroup == "Select One") {
+                bgError.innerHTML = "must be selected";
+            } else {
+                bgError.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

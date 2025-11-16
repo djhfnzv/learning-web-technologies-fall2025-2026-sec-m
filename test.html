@@ -1,5 +1,47 @@
-<html>
-    <head>
-        <h1>Testing xampp</h1>
-    </head>
+<html lang="en">
+<head>
+    <title>Validating HTML using JavaScript</title>
+</head>
+<body>
+    <form>
+        <p>Name</p>
+    <input type="text" id="name" value=""/>
+    <p id="nError" style="color:red"></p>
+
+    <input type="submit" value="Submit" onclick="validation()"/>
+    </form>
+    
+
+<script>
+
+function validation(){
+    let name = document.getElementById("name").value;
+    let nError = document.getElementById("nError");
+    let words = name.split(" ");
+    
+
+    if(name === ""){
+        nError.innerHTML = "Cannot be empty";
+    }
+    
+    if(words.length < 2){
+        nError.innerHTML = "Need at least 2 words";
+    }
+
+    
+    if(!allowed.test(name)){
+        nError.innerHTML = "Only a-z, A-Z, . , - allowed";
+        return;
+    }
+
+    if(!/^[A-Za-z]/.test(name)){
+        nError.innerHTML = "Must start with a letter";
+        return;
+    }
+
+}
+
+</script>
+
+</body>
 </html>

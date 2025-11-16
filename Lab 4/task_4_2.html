@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Validating HTML using JavaScript</title>
+    </head>
+    <body>
+        
+            <table>
+                <tr>
+                    <td>Email</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="email" value=""></td>
+                    <td>hint: sample@example.com</td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="Submit" onclick="validation()"></td>
+                </tr>
+            </table>
+            <p id="eError" style="color:red"></p>
+
+    <script>
+
+    function validation(){
+
+        let email = document.getElementById("email").value.trim();
+        let eError = document.getElementById("eError");
+
+        if(email === ""){
+            eError.innerHTML = "Cannot be empty";
+            return;
+        }
+
+        let at = false;
+        let dot = false;
+
+        for(let i = 0; i < email.length; i++){
+            if(email[i] === '@') at = true;
+            if(email[i] === '.') dot = true;
+        }
+
+        if(at === false || dot === false){
+            eError.innerHTML = "Not a valid email";
+        } else {
+            eError.innerHTML = "";
+        }
+    }
+
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Validating HTML by using JavaScript</title>
+</head>
+<body>
+    <p>Degree</p>
+    <table>
+        <tr>
+            <td><input type="checkbox" name="degree" value="SSC"> SSC</td>
+            <td><input type="checkbox" name="degree" value="HSC"> HSC</td>
+            <td><input type="checkbox" name="degree" value="BSc"> BSc</td>
+        </tr>
+        <tr>
+            <td colspan="3"><p id="dError" style="color:red"></p></td>
+        </tr>
+    </table>
+
+    <input type="button" value="Submit" onclick="test()">
+
+    <script>
+        function test() {
+            let degrees = document.querySelectorAll('input[name="degree"]:checked');
+            let dError = document.getElementById("dError");
+
+            if (degrees.length === 0) {
+                dError.innerHTML = "At least one degree must be selected";
+            } else {
+                dError.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

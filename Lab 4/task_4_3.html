@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Validating HTML using JavaScript</title>
+    </head>
+    <body>
+        
+        <table>
+            <tr>
+                <th>Gender</th>
+            </tr>
+            <tr style="height: 50px;">
+                <td><input type="radio" id="m" name="gender" value="male"> Male</td>
+                <td><input type="radio" id="f" name="gender" value="female"> Female</td>
+                <td><input type="radio" id="Only" name="gender" value="others"> Others</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" onclick="test()">
+                </td>
+            </tr>
+        </table>
+        <p id="gError" style="color: red;"></p>
+
+        <script>
+            function test() {
+                let gender = document.querySelector('input[name="gender"]:checked');
+                let gError = document.getElementById("gError");
+
+                if (!gender) {
+                    gError.innerHTML = "One of them must be selected";
+                } else {
+                    gError.innerHTML = "";
+                }
+            }
+        </script>
+
+    </body>
+</html>

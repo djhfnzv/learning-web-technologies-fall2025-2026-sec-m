@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <title>Validating HTML using JavaScript</title>
+</head>
+<body>
+    <form>
+        <p>Name</p>
+    <input type="text" id="name" value=""/>
+    <p id="nError" style="color:red"></p>
+
+    <input type="button" value="Submit" onclick="validation()"/>
+    </form>
+    
+
+<script>
+
+function validation(){
+    let name = document.getElementById("name").value;
+    let nError = document.getElementById("nError");
+    let words = name.split(" ");
+    
+
+    if(name === ""){
+        nError.innerHTML = "Cannot be empty";
+        return;
+    }
+    
+    if(words.length < 2){
+        nError.innerHTML = "Need at least 2 words";
+        return;
+    }
+
+    
+    for(let i=0; i<name.length; i++){
+        let code = name.charCodeAt(i);
+
+        let letterUpper = (code >= 65 && code <= 90);   // A-Z
+        let letterLower = (code >= 97 && code <= 122);  // a-z
+        let dot = (code === 46);                        // .
+        let hyphen = (code === 45);                     // -
+        let space = (code === 32);                      // space
+
+        if(!(letterUpper || letterLower || dot || hyphen || space)){
+            nError.innerHTML = "Only a-z, A-Z, . , - allowed";
+            return;
+        }
+    }
+
+    let first = name.charCodeAt(0);
+    if(!((first >= 65 && first <= 90) || (first >= 97 && first <= 122))){
+        nError.innerHTML = "Must start with a letter";
+        return;
+    }
+
+    nError.innerHTML="";
+
+}
+
+</script>
+
+</body>
+</html>

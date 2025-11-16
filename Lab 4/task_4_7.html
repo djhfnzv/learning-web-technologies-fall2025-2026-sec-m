@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Validating HTML by using JavaScript</title>
+</head>
+<body>
+    <p>Profile</p>
+
+    <table>
+        <tr>
+            <td>User Id <input type="text" id="uId" name="" value=""/></td>
+        </tr>
+        <tr>
+            <p id ="uError"></p>
+        </tr>
+        <tr>
+            <td>Picture <input type="file" id="picture"name="" value="Browse .."/></td>
+        </tr>
+        <tr>
+            <p id ="pError"></p>
+        </tr>                
+    </table>
+    
+    <p id="Error" style="color:red;"></p>
+
+    <input type="button" value="Submit" onclick="test()">
+
+    <script>
+        function test() {
+            let uId = document.getElementById("uId").value;
+            let picture = document.getElementById("uId").value;
+            let pError = document.getElementById("pError");
+            let uError = document.getElementById("uError");
+
+            if (uid < 0) {
+                uError.innerHTML =""                
+            } else {
+                
+            }
+        }
+    </script>
+</body>
+</html>
