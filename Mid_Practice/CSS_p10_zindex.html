@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z-Index Stacking Example</title>
+    <style>
+        .container {
+            position: relative; /* relative to contain absolute children */
+            width: 500px;
+            height: 300px;
+            border: 2px solid #333;
+            margin: 50px auto;
+        }
+
+        .box {
+            position: absolute;
+            width: 200px;
+            height: 150px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Box 1 - Red */
+        .box1 {
+            top: 20px;
+            left: 30px;
+            background-color: red;
+            z-index: 1;
+        }
+
+        /* Box 2 - Blue */
+        .box2 {
+            top: 60px;
+            left: 80px;
+            background-color: blue;
+            z-index: 2;
+        }
+
+        /* Box 3 - Green */
+        .box3 {
+            top: 100px;
+            left: 130px;
+            background-color: green;
+            z-index: 3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align:center;">Z-Index Stacking Example</h2>
+
+    <div class="container">
+        <div class="box box1">Box 1</div>
+        <div class="box box2">Box 2</div>
+        <div class="box box3">Box 3</div>
+    </div>
+
+    <p id="text" style="text-align:center;">
+        Experiment by changing the z-index values to see which box appears on top.
+    </p>
+
+    <script>
+        document.getElementById("text").addEventListener("mouseover", () => {
+        console.log("Mouse is over the text!");
+    });
+</script>
+
+</body>
+</html>

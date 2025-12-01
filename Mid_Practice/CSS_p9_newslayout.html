@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Portal Layout</title>
+
+    <style>
+      
+        .box {
+            display: inline-block;    
+            vertical-align: top;     
+            padding: 5px;
+            margin: 2px;
+            border: 2px solid #333;
+            box-sizing: border-box;      
+            height: 400px;               
+            font-size: 16px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            background-color: #f1c40f;
+        }
+
+        /* Main Content */
+        .main-content {
+            width: 60%;
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Advertisement */
+        .ad-panel {
+            width: 20%;
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center;">News Portal Layout</h1>
+
+    <div class="box sidebar">
+        <h2>Categories</h2>
+        <ul>
+            <li>World News</li>
+            <li>Sports</li>
+            <li>Technology</li>
+            <li>Entertainment</li>
+            <li>Health</li>
+        </ul>
+    </div>
+
+    <div class="box main-content">
+        <h2>Latest Articles</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac eros nec lacus feugiat lacinia. Quisque auctor sapien vel lorem convallis, a vulputate magna laoreet.</p>
+        <p>Nulla facilisi. Phasellus sit amet fermentum purus. Suspendisse potenti. Donec sit amet varius nulla, at pulvinar lectus.</p>
+    </div>
+
+    <div class="box ad-panel">
+        <h2>Advertisement</h2>
+        <p>Ad content goes here. Promote your products or services.</p>
+        <p>Example: Buy the latest gadgets now!</p>
+    </div>
+
+</body>
+</html>

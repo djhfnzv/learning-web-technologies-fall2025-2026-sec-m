@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overflow Test</title>
+
+    <style>
+        .overflow-box {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 20px;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 1. visible (default) */
+        #visible-box { 
+            overflow: visible; /* Content overflows and is fully visible */ 
+        }
+
+        /* 2. hidden */
+        #hidden-box { 
+            overflow: hidden; /* Extra content is clipped; no scrollbars */ 
+        }
+
+        /* 3. scroll */
+        #scroll-box { 
+            overflow: scroll; /* Scrollbars always visible */ 
+        }
+
+        /* 4. auto */
+        #auto-box { 
+            overflow: auto; /* Scrollbars appear only when content overflows */ 
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Overflow Behavior Test</h2>
+
+    <div id="visible-box" class="overflow-box">
+        <p>Visible overflow example: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet sem ac magna aliquam scelerisque. Fusce sit amet urna quis sapien ultricies pretium.</p>
+        <p>Extra content to overflow the box.</p>
+        <p>Extra content to overflow the box.</p>
+        <p>Extra content to overflow the box.</p>
+        <p>Extra content to overflow the box.</p>
+        <p>Extra content to overflow the box.</p>
+        <p>Extra content to overflow the box.</p>
+    </div>
+
+    <div id="hidden-box" class="overflow-box">
+        <p>Hidden overflow example: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet sem ac magna aliquam scelerisque. Fusce sit amet urna quis sapien ultricies pretium.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+        <p>Extra content that will be clipped and not visible.</p>
+    </div>
+
+    <div id="scroll-box" class="overflow-box">
+        <p>Scroll example: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet sem ac magna aliquam scelerisque. Fusce sit amet urna quis sapien ultricies pretium.</p>
+        <p>Scrollbars are always visible for this box.</p>
+        <p>Scrollbars are always visible for this box.</p>
+        <p>Scrollbars are always visible for this box.</p>
+    </div>
+
+    <div id="auto-box" class="overflow-box">
+        <p>Auto example: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet sem ac magna aliquam scelerisque. Fusce sit amet urna quis sapien ultricies pretium.</p>
+        <p>Scrollbars appear only if content exceeds the box height.</p>
+        <p>Scrollbars appear only if content exceeds the box height.</p>
+    </div>
+
+</body>
+</html>

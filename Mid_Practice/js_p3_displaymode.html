@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio with Theme Toggle</title>
+</head>
+<body>
+
+    <header id="header" style="padding:20px; text-align:center;">
+        <h1>Asif Akber</h1>
+        <p>Computer Science Student</p>
+        <button id="themeToggle">Switch to Dark Mode</button>
+    </header>
+
+    <main id="main" style="padding:20px;">
+        <section>
+            <h2>About Me</h2>
+            <p>I am a passionate Computer Science student preparing for internship opportunities. I enjoy building web projects and exploring new technologies.</p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <ul>
+                <li>B.Sc. in Computer Science - AIUB</li>
+                <li>HSC - Milestone College</li>
+                <li>SSC - Kurmitola High School & College</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer id="footer" style="padding:20px; text-align:center;">
+        <p>&copy; 2025 Asif Akber | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById("themeToggle");
+
+        // Light theme and Dark theme definitions
+        const lightTheme = {
+            bodyBg: "#ffffff",
+            textColor: "#000000",
+            headerBg: "#f0f0f0",
+            footerBg: "#f0f0f0",
+            sectionBg: "#ffffff",
+            borderColor: "#ccc"
+        };
+
+        const darkTheme = {
+            bodyBg: "#121212",
+            textColor: "#f1f1f1",
+            headerBg: "#1f1f1f",
+            footerBg: "#1f1f1f",
+            sectionBg: "#1a1a1a",
+            borderColor: "#555"
+        };
+
+        let isDarkMode = false;
+
+        function applyTheme(theme) {
+            document.body.style.backgroundColor = theme.bodyBg;
+            document.body.style.color = theme.textColor;
+            document.getElementById("header").style.backgroundColor = theme.headerBg;
+            document.getElementById("footer").style.backgroundColor = theme.footerBg;
+            document.querySelectorAll("section").forEach(section => {
+                section.style.backgroundColor = theme.sectionBg;
+                section.style.border = `1px solid ${theme.borderColor}`;
+                section.style.padding = "10px";
+                section.style.margin = "10px 0";
+            });
+        }
+
+        // Initial theme (light)
+        applyTheme(lightTheme);
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener("click", function() {
+            if (isDarkMode) {
+                applyTheme(lightTheme);
+                themeToggleBtn.textContent = "Switch to Dark Mode";
+                isDarkMode = false;
+            } else {
+                applyTheme(darkTheme);
+                themeToggleBtn.textContent = "Switch to Light Mode";
+                isDarkMode = true;
+            }
+        });
+    </script>
+
+</body>
+</html>

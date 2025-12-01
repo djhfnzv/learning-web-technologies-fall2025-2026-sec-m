@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Style Control Panel</title>
+</head>
+<body>
+
+    <h2>Dynamic Style Control Panel</h2>
+
+    <p id="textBlock">
+        This is a sample text block. Use the buttons below to change its style dynamically. 
+        You can modify the background color, increase font size, center the text, or reset styles.
+    </p>
+
+    <button onclick="changeBackground()">Change Background Color</button>
+    <button onclick="increaseFont()">Increase Font Size</button>
+    <button onclick="centerText()">Center Text</button>
+    <button onclick="resetStyle()">Reset Style</button>
+
+    <script>
+        const textBlock = document.getElementById('textBlock');
+
+        let currentFontSize = 16; // initial font size in px
+        let colors = ['white', 'lightyellow', 'lightgreen', 'lightblue', 'lightpink'];
+        let colorIndex = 0;
+
+        function changeBackground() {
+            colorIndex = (colorIndex + 1) % colors.length;
+            textBlock.style.backgroundColor = colors[colorIndex];
+        }
+
+        function increaseFont() {
+            currentFontSize += 2;
+            textBlock.style.fontSize = currentFontSize + 'px';
+        }
+
+        function centerText() {
+            textBlock.style.textAlign = 'center';
+        }
+
+        function resetStyle() {
+            textBlock.style.backgroundColor = 'white';
+            textBlock.style.fontSize = '16px';
+            textBlock.style.textAlign = 'left';
+            currentFontSize = 16;
+            colorIndex = 0;
+        }
+    </script>
+
+</body>
+</html>

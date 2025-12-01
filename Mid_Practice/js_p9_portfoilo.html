@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio</title>
+</head>
+<body>
+
+    <!-- Theme Toggle Button -->
+    <button id="themeBtn">Switch to Dark Mode</button>
+
+    <!-- Live Greeting -->
+    <h2 id="greeting"></h2>
+
+    <!-- Navigation -->
+    <nav>
+        <button onclick="showSection('about')">About</button>
+        <button onclick="showSection('projects')">Projects</button>
+        <button onclick="showSection('contact')">Contact</button>
+    </nav>
+
+    <!-- Sections -->
+    <section id="about">
+        <h3>About Me</h3>
+        <p>Hello! I am a Computer Science student passionate about web development and real-world projects.</p>
+    </section>
+
+    <section id="projects" style="display:none;">
+        <h3>Projects</h3>
+        <ul>
+            <li>Project 1 - Portfolio Website</li>
+            <li>Project 2 - Task Manager App</li>
+            <li>Project 3 - Interactive Quiz</li>
+        </ul>
+    </section>
+
+    <section id="contact" style="display:none;">
+        <h3>Contact Me</h3>
+        <form id="contactForm" onsubmit="return validateForm()">
+            <label>Name:</label>
+            <input type="text" id="name"><br>
+            <span id="nameError" style="color:red;"></span><br>
+
+            <label>Email:</label>
+            <input type="text" id="email"><br>
+            <span id="emailError" style="color:red;"></span><br>
+
+            <label>Message:</label><br>
+            <textarea id="message" rows="5"></textarea><br>
+            <span id="messageError" style="color:red;"></span><br>
+
+            <input type="submit" value="Send">
+            <span id="successMsg" style="color:green;"></span>
+        </form>
+    </section>
+
+    <script>
+        // Theme Toggle
+        let darkMode = false;
+        const themeBtn = document.getElementById('themeBtn');
+        themeBtn.onclick = function() {
+            if(!darkMode){
+                document.body.style.backgroundColor = '#222';
+                document.body.style.color = '#f0f0f0';
+                themeBtn.innerText = 'Switch to Light Mode';
+            } else {
+                document.body.style.backgroundColor = '#fff';
+                document.body.style.color = '#000';
+                themeBtn.innerText = 'Switch to Dark Mode';
+            }
+            darkMode = !darkMode;
+        }
+
+        // Live Greeting
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            let greet = '';
+            if(hour < 12) greet = 'Good Morning!';
+            else if(hour < 18) greet = 'Good Afternoon!';
+            else greet = 'Good Evening!';
+            document.getElementById('greeting').innerText = greet;
+        }
+        updateGreeting();
+        setInterval(updateGreeting, 60000); // Update every minute
+
+        // Section Toggling
+        function showSection(sectionId){
+            const sections = ['about', 'projects', 'contact'];
+            sections.forEach(id => {
+                document.getElementById(id).style.display = (id === sectionId) ? 'block' : 'none';
+            });
+        }
+
+        // Contact Form Validation
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            let valid = true;
+
+            // Reset errors
+            document.getElementById('nameError').innerText = '';
+            document.getElementById('emailError').innerText = '';
+            document.getElementById('messageError').innerText = '';
+            document.getElementById('successMsg').innerText = '';
+
+            if(name === ''){
+                document.getElementById('nameError').innerText = 'Name is required.';
+                valid = false;
+            }
+
+            if(!email.includes('@') || !email.includes('.')){
+                document.getElementById('emailError').innerText = 'Enter a valid email.';
+                valid = false;
+            }
+
+            if(message.length < 10){
+                document.getElementById('messageError').innerText = 'Message must be at least 10 characters.';
+                valid = false;
+            }
+
+            if(valid){
+                document.getElementById('successMsg').innerText = 'Registration Successful!';
+            }
+
+            return false; // Prevent actual form submission for demo
+        }
+    </script>
+
+</body>
+</html>

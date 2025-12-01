@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Registration Form</title>
+</head>
+<body>
+
+    <h2>Smart Registration Form</h2>
+
+    <form id="registrationForm">
+        <label for="userType">Select User Type:</label>
+        <select id="userType" onchange="adjustForm()">
+            <option value="">--Select--</option>
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+        </select>
+        <br><br>
+
+        <div id="rollNumberDiv" style="display:none;">
+            <label for="rollNumber">Roll Number:</label>
+            <input type="text" id="rollNumber" name="rollNumber">
+        </div>
+
+        <div id="departmentDiv" style="display:none;">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department">
+        </div>
+        <br>
+
+        <input type="submit" value="Register">
+    </form>
+
+    <script>
+        function adjustForm() {
+            const userType = document.getElementById('userType').value;
+            const rollDiv = document.getElementById('rollNumberDiv');
+            const deptDiv = document.getElementById('departmentDiv');
+
+            if(userType === 'Student') {
+                rollDiv.style.display = 'block';
+                deptDiv.style.display = 'none';
+            } else if(userType === 'Teacher') {
+                rollDiv.style.display = 'none';
+                deptDiv.style.display = 'block';
+            } else {
+                rollDiv.style.display = 'none';
+                deptDiv.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>

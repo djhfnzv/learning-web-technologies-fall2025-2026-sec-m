@@ -1,0 +1,57 @@
+/* Global Styling */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    text-align: center;
+    background-color: #003366;
+    color: white;
+    padding: 15px 0;
+}
+
+/* Profile Box (Box Model Applied) */
+.profile-box {
+    width: 50%;                /* Fixed width */
+    background-color: #ffffff; /* Light background */
+    margin: 30px auto;         /* Center alignment */
+    padding: 20px;             /* Inner spacing */
+    border: 2px solid #ccc;    /* Border */
+    border-radius: 10px;       /* Smooth corners */
+    box-shadow: 0 0 10px rgba(26, 22, 90, 0.152);
+    text-align: center;
+}
+
+/* Student Image */
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;        /* Round the image */
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Text Styling */
+.student-name {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.student-info {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+.bio {
+    margin-top: 15px;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+/* Footer */
+footer p {
+    font-size: 0.9em;
+}

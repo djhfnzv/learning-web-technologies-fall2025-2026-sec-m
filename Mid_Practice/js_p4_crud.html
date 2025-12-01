@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+</head>
+<body>
+
+    <h2>Student Management System</h2>
+
+    <!-- Input Fields -->
+    <div>
+        <label>Name: </label>
+        <input type="text" id="name">
+        <label>Roll: </label>
+        <input type="text" id="roll">
+        <label>Department: </label>
+        <input type="text" id="department">
+        <button id="addStudentBtn">Add Student</button>
+        <div id="errorMsg" style="color:red;"></div>
+    </div>
+
+    <br>
+
+    <!-- Student Table -->
+    <table border="1" cellpadding="5" cellspacing="0" id="studentTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll</th>
+                <th>Department</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dynamic rows will appear here -->
+        </tbody>
+    </table>
+
+    <script>
+        const nameInput = document.getElementById("name");
+        const rollInput = document.getElementById("roll");
+        const deptInput = document.getElementById("department");
+        const addBtn = document.getElementById("addStudentBtn");
+        const tableBody = document.getElementById("studentTable").querySelector("tbody");
+        const errorMsg = document.getElementById("errorMsg");
+
+        addBtn.addEventListener("click", function() {
+            const name = nameInput.value.trim();
+            const roll = rollInput.value.trim();
+            const dept = deptInput.value.trim();
+
+            // Validation
+            if (name === "" || roll === "" || dept === "") {
+                errorMsg.innerText = "All fields are required!";
+                return;
+            }
+            errorMsg.innerText = "";
+
+            // Create new row
+            const row = document.createElement("tr");
+
+            // Name cell
+            const nameCell = document.createElement("td");
+            nameCell.innerText = name;
+            row.appendChild(nameCell);
+
+            // Roll cell
+            const rollCell = document.createElement("td");
+            rollCell.innerText = roll;
+            row.appendChild(rollCell);
+
+            // Department cell
+            const deptCell = document.createElement("td");
+            deptCell.innerText = dept;
+            row.appendChild(deptCell);
+
+            // Action cell with Delete button
+            const actionCell = document.createElement("td");
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete";
+            deleteBtn.addEventListener("click", function() {
+                tableBody.removeChild(row);
+            });
+            actionCell.appendChild(deleteBtn);
+            row.appendChild(actionCell);
+
+            // Append row to table
+            tableBody.appendChild(row);
+
+            // Clear input fields
+            nameInput.value = "";
+            rollInput.value = "";
+            deptInput.value = "";
+        });
+    </script>
+
+</body>
+</html>
