@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Contact Us</h2>
+
+<form id="contactForm">
+    <label>Name</label>
+    <input type="text" id="name">
+    <small id="nameError"></small>
+
+    <label>Email</label>
+    <input type="email" id="email">
+    <small id="emailError"></small>
+
+    <label>Phone</label>
+    <input type="text" id="phone" placeholder="123-456-7890">
+    <small id="phoneError"></small>
+
+    <label>Subject</label>
+    <select id="subject">
+        <option value="">Select Subject</option>
+        <option>Support</option>
+        <option>Sales</option>
+        <option>Feedback</option>
+    </select>
+    <small id="subjectError"></small>
+
+    <label>Message</label>
+    <textarea id="message"></textarea>
+    <small id="messageError"></small>
+
+    <button type="submit" id="submitBtn" disabled>Send Message</button>
+
+    <div id="loading">Submitting...</div>
+</form>
+
+<div id="successBox"></div>
+
+<script>
+const form = document.getElementById("contactForm");
+const submitBtn = document.getElementById("submitBtn");
+const loading = document.getElementById("loading");
+const successBox = document.getElementById("successBox");
+
+let valid = {
+    name:false, email:false, phone:false, subject:false, message:false
+};
+
+function checkFormValidity() {
+    submitBtn.disabled = !Object.values(valid).every(v => v);
+}
+
+/* Name Validation */
+document.getElementById("name").addEventListener("input", e => {
+    const v = e.target.value.trim();
+    if (v.length >= 3 && /^[A-Za-z ]+$/.test(v)) {
+        nameError.textContent = "✔ Valid";
+        nameError.className = "success";
+        valid.name = true;
+    } else {
+        nameError.textContent = "❌ Min 3 letters, only letters & spaces";
+        nameError.className = "error";
+        valid.name = false;
+    }
+    checkFormValidity();
+});
+
+/* Email Validation (on blur) */
+email.addEventListener("blur", () => {
+    fetch("validate_email.php?email=" + email.value)
+        .then(res => res.json())
+        .then(data => {
+            emailError.textContent = data.message;
+            emailError.className = data.valid ? "success" : "error";
+            valid.email = data.valid;
+            checkFormValidity();
+        });
+});
+
+/* Phone */
+phone.addEventListener("input", e => {
+    if (/^\d{3}-\d{3}-\d{4}$/.test(e.target.value)) {
+        phoneError.textContent = "✔ Valid";
+        phoneError.className = "success";
+        valid.phone = true;
+    } else {
+        phoneError.textContent = "❌ Format: 123-456-7890";
+        phoneError.className = "error";
+        valid.phone = false;
+    }
+    checkFormValidity();
+});
+
+/* Subject */
+subject.addEventListener("change", e => {
+    if (e.target.value !== "") {
+        subjectError.textContent = "✔ Selected";
+        subjectError.className = "success";
+        valid.subject = true;
+    } else {
+        subjectError.textContent = "❌ Select subject";
+        subjectError.className = "error";
+        valid.subject = false;
+    }
+    checkFormValidity();
+});
+
+/* Message */
+message.addEventListener("input", e => {
+    if (e.target.value.length >= 20) {
+        messageError.textContent = "✔ Valid";
+        messageError.className = "success";
+        valid.message = true;
+    } else {
+        messageError.textContent = "❌ Minimum 20 characters";
+        messageError.className = "error";
+        valid.message = false;
+    }
+    checkFormValidity();
+});
+
+/* AJAX Submit */
+form.addEventListener("submit", e => {
+    e.preventDefault();
+    loading.style.display = "block";
+
+    fetch("submit_form.php", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+            name:name.value,
+            email:email.value,
+            phone:phone.value,
+            subject:subject.value,
+            message:message.value
+        }),
+        signal: AbortSignal.timeout(5000)
+    })
+    .then(res => res.json())
+    .then(data => {
+        loading.style.display = "none";
+        if (data.success) {
+            successBox.innerHTML = "✔ Message Sent! Ref: " + data.ref;
+            form.reset();
+            submitBtn.disabled = true;
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(() => {
+        loading.style.display = "none";
+        alert("Request timed out");
+    });
+});
+</script>
+
+</body>
+</html>

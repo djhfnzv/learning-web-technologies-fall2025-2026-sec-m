@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Username Availability Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>User Registration</h2>
+
+<form>
+    <label>Username</label><br>
+    <input type="text" id="username">
+    <span id="charCount">0</span>/3 characters minimum
+    <div id="status"></div>
+    <div id="loading">Checking...</div><br>
+
+    <label>Email</label><br>
+    <input type="email"><br><br>
+
+    <label>Password</label><br>
+    <input type="password"><br><br>
+
+    <button type="submit" id="submitBtn" disabled>Register</button>
+</form>
+
+<script>
+let timer = null;
+const usernameInput = document.getElementById("username");
+const statusDiv = document.getElementById("status");
+const loadingDiv = document.getElementById("loading");
+const submitBtn = document.getElementById("submitBtn");
+const charCount = document.getElementById("charCount");
+
+usernameInput.addEventListener("keyup", function () {
+    const username = usernameInput.value.trim();
+    charCount.innerText = username.length;
+
+    clearTimeout(timer);
+
+    if (username.length < 3) {
+        statusDiv.innerHTML = "Minimum 3 characters required";
+        statusDiv.className = "error";
+        submitBtn.disabled = true;
+        return;
+    }
+
+    timer = setTimeout(function () {
+        checkUsername(username);
+    }, 300);
+});
+
+function checkUsername(username) {
+    loadingDiv.style.display = "block";
+
+    const xttp = new XMLHttpRequest();
+    xttp.open("GET", "check_username.php?username=" + username, true);
+
+    xttp.onreadystatechange = function () {
+        if (xttp.readyState === 4 && xttp.status === 200) {
+            loadingDiv.style.display = "none";
+
+            const response = JSON.parse(xttp.responseText);
+            statusDiv.innerHTML = response.message;
+
+            if (response.available) {
+                statusDiv.className = "success";
+                submitBtn.disabled = false;
+            } else {
+                statusDiv.className = "error";
+                submitBtn.disabled = true;
+            }
+        }
+    };
+
+    xttp.send();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student List - AJAX & JSON</title>
+</head>
+<body>
+    <h1>Student Records</h1>
+    <button id="loadBtn">Load Student Data</button>
+    <div id="message"></div>
+    <table border="1" id="studentTable" style="margin-top:20px; display:none;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Data will be injected here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('loadBtn').addEventListener('click', function(){
+            const messageDiv = document.getElementById('message');
+            const table = document.getElementById('studentTable');
+            const tbody = document.getElementById('tableBody');
+
+            // Clear previous content
+            messageDiv.textContent = 'Loading...';
+            tbody.innerHTML = '';
+            table.style.display = 'none';
+
+            // Create AJAX request
+            const xttp = new XMLHttpRequest();
+            xttp.open('GET', 'get_students.php', true);
+            xttp.onreadystatechange = function(){
+                if(xttp.readyState === 4){
+                    if(xttp.status === 200){
+                        try {
+                            const data = JSON.parse(xttp.responseText);
+
+                            if(data.error){
+                                messageDiv.textContent = data.error;
+                                return;
+                            }
+
+                            if(data.length === 0){
+                                messageDiv.textContent = 'No student records found.';
+                                return;
+                            }
+                            data.forEach(student => {
+                                const row = `<tr>
+                                    <td>${student.id}</td>
+                                    <td>${student.name}</td>
+                                    <td>${student.email}</td>
+                                    <td>${student.department}</td>
+                                </tr>`;
+                                tbody.innerHTML += row;
+                            });
+
+                            messageDiv.textContent = '';
+                            table.style.display = 'table';
+
+                        } catch(e) {
+                            messageDiv.textContent = 'Error parsing JSON data.';
+                        }
+                    } else {
+                        messageDiv.textContent = 'AJAX request failed. Status: ' + xttp.status;
+                    }
+                }
+            };
+            xttp.send();
+        });
+    </script>
+</body>
+</html>

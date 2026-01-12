@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Asif",
+        "email": "asif@gmail.com",
+        "department": "Computer Science"
+    },
+    {
+        "id": 2,
+        "name": "Antor",
+        "email": "Antor@gmail.com",
+        "department": "Mathematics"
+    },
+    {
+        "id": 3,
+        "name": "Adnan",
+        "email": "adnan@gmail.com",
+        "department": "Physics"
+    }
+]

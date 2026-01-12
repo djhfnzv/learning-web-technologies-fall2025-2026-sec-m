@@ -1,0 +1,59 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "courses": [
+        {"code": "CSC101", "name": "Programming", "grade": 85, "credits": 3},
+        {"code": "MAT201", "name": "Calculus", "grade": 78, "credits": 4}
+      ],
+      "gpa": 3.5,
+      "semester": "Fall 2024"
+    },
+    {
+      "id": 2,
+      "name": "Alice Smith",
+      "email": "alice@example.com",
+      "courses": [
+        {"code": "PHY101", "name": "Physics", "grade": 92, "credits": 3},
+        {"code": "CSC101", "name": "Programming", "grade": 88, "credits": 3}
+      ],
+      "gpa": 3.8,
+      "semester": "Fall 2024"
+    },
+    {
+      "id": 3,
+      "name": "Bob Johnson",
+      "email": "bob@example.com",
+      "courses": [
+        {"code": "MAT201", "name": "Calculus", "grade": 65, "credits": 4},
+        {"code": "ENG101", "name": "English", "grade": 72, "credits": 2}
+      ],
+      "gpa": 2.9,
+      "semester": "Spring 2024"
+    },
+    {
+      "id": 4,
+      "name": "Carol White",
+      "email": "carol@example.com",
+      "courses": [
+        {"code": "CSC101", "name": "Programming", "grade": 95, "credits": 3},
+        {"code": "MAT201", "name": "Calculus", "grade": 90, "credits": 4}
+      ],
+      "gpa": 4.0,
+      "semester": "Fall 2024"
+    },
+    {
+      "id": 5,
+      "name": "David Brown",
+      "email": "david@example.com",
+      "courses": [
+        {"code": "PHY101", "name": "Physics", "grade": 80, "credits": 3},
+        {"code": "CSC101", "name": "Programming", "grade": 82, "credits": 3}
+      ],
+      "gpa": 3.2,
+      "semester": "Spring 2024"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 40px;
+}
+
+input {
+    padding: 8px;
+    width: 250px;
+}
+
+#status {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+#loading {
+    display: none;
+    color: blue;
+    font-size: 14px;
+}
+
+button {
+    padding: 8px 15px;
+}

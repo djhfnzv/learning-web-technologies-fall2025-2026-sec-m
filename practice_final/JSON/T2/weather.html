@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7-Day Weather Forecast</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Weather Forecast</h1>
+
+<div class="controls">
+    <label for="citySelect">City:</label>
+    <select id="citySelect" onchange="fetchWeather()">
+        <option value="New York">New York</option>
+        <option value="Los Angeles">Los Angeles</option>
+        <option value="Chicago">Chicago</option>
+        <option value="Miami">Miami</option>
+        <option value="Seattle">Seattle</option>
+    </select>
+
+    <label for="unitToggle">Unit:</label>
+    <select id="unitToggle" onchange="renderForecast()">
+        <option value="C">°C</option>
+        <option value="F">°F</option>
+    </select>
+
+    <button onclick="fetchWeather()">Refresh</button>
+</div>
+
+<div id="currentDate"></div>
+
+<div id="forecastContainer" class="forecast-container">
+    <!-- Forecast cards -->
+</div>
+
+<div id="summary"></div>
+
+<script>
+let weatherData = [];
+let unit = "C";
+
+function fetchWeather() {
+    const city = document.getElementById('citySelect').value;
+    document.getElementById('forecastContainer').innerHTML = "Loading...";
+    fetch(`weather.php?city=${encodeURIComponent(city)}`)
+        .then(res => res.json())
+        .then(data => {
+            weatherData = data.forecast;
+            renderForecast();
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById('forecastContainer').innerHTML = "Error loading weather data.";
+        });
+}
+
+function renderForecast() {
+    unit = document.getElementById('unitToggle').value;
+    const container = document.getElementById('forecastContainer');
+    container.innerHTML = '';
+
+    if (!weatherData || weatherData.length === 0) {
+        container.innerHTML = "No data available.";
+        return;
+    }
+
+    let hottest = weatherData[0];
+    let coldest = weatherData[0];
+    let totalTemp = 0;
+
+    weatherData.forEach(day => {
+        const dateObj = new Date(day.date);
+        const dayName = dateObj.toLocaleDateString('en-US',{ weekday:'short' });
+
+        let high = day.temp_high;
+        let low = day.temp_low;
+        if(unit==="F"){
+            high = Math.round(high * 9/5 +32);
+            low = Math.round(low * 9/5 +32);
+        }
+
+        totalTemp += (day.temp_high + day.temp_low)/2;
+
+        if(day.temp_high > hottest.temp_high) hottest = day;
+        if(day.temp_low < coldest.temp_low) coldest = day;
+
+        const card = document.createElement('div');
+        card.className = 'forecast-card';
+        if(day.condition.includes("Rain") || day.condition.includes("Snow")) card.classList.add('alert');
+
+        card.innerHTML = `
+            <h3>${dayName} (${day.date}) ${day.icon}</h3>
+            <p>High: ${high}°${unit}, Low: ${low}°${unit}</p>
+            <p>${day.condition}</p>
+            <p>Humidity: ${day.humidity}%, Wind: ${day.wind_speed} mph</p>
+        `;
+        container.appendChild(card);
+    });
+
+    document.getElementById('summary').innerHTML = `
+        <p>Hottest Day: ${hottest.date} (${hottest.temp_high}°C)</p>
+        <p>Coldest Day: ${coldest.date} (${coldest.temp_low}°C)</p>
+        <p>Average Temperature: ${(totalTemp/weatherData.length).toFixed(1)}°C</p>
+    `;
+
+    document.getElementById('currentDate').textContent = "Current Date & Time: " + new Date().toLocaleString();
+}
+
+fetchWeather();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+body {
+    font-family: 'Times New Roman', Times, serif, sans-serif; 
+    margin: 20px; 
+}
+h1 { 
+    text-align: center; 
+}
+.controls { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+}
+input, select { 
+    padding: 5px; 
+    font-size: 14px; 
+}
+.student-container { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+}
+.student-card { 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    width: 200px; 
+    border-radius: 5px; 
+    background-color: #f9f9f9; 
+}
+.student-card.highlight { 
+    border: 2px solid green; 
+}
+.student-card h3 { 
+    margin: 0; 
+}
+.student-card button { 
+    margin-top: 5px; 
+    padding: 5px; 
+    width: 100%; 
+    cursor: pointer;
+}
+.statistics { 
+    margin-top: 20px; 
+    border-top: 1px solid #ccc; 
+    padding-top: 10px; 
+}
+.detail-view { 
+    position: fixed; 
+    top:50%; 
+    left:50%; 
+    transform: translate(-50%,-50%); 
+    background:#fff; 
+    padding:20px; 
+    border:1px solid #000; 
+    z-index:1000; 
+    max-width:500px; 
+    width:90%; 
+    overflow:auto;
+}

@@ -1,0 +1,30 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    width: 400px;
+    margin: 40px auto;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+small {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.success { color: green; }
+.error { color: red; }
+
+#loading {
+    display: none;
+    color: blue;
+}
+
+#successBox {
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+}

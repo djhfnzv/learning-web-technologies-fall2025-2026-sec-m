@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Student Dashboard</h1>
+
+<div class="controls">
+    <input type="text" id="searchInput" placeholder="Search by name..." onkeyup="filterStudents()">
+    <select id="semesterFilter" onchange="filterStudents()">
+        <option value="">All Semesters</option>
+    </select>
+</div>
+
+<div id="studentContainer" class="student-container">
+</div>
+
+<div id="statistics" class="statistics">
+</div>
+
+<div id="detailView" class="detail-view hidden">
+    <button onclick="closeDetail()">Close</button>
+    <h2 id="detailName"></h2>
+    <p id="detailEmail"></p>
+    <p id="detailSemester"></p>
+    <p id="detailGPA"></p>
+    <p id="detailTotalCredits"></p>
+    <table id="courseTable">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Course Name</th>
+                <th>Grade</th>
+                <th>Credits</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <p id="gradeDistribution"></p>
+</div>
+
+<script>
+let students = [];
+
+async function loadStudents() {
+    try {
+        const response = await fetch('students.json');
+        students = await response.json();
+        students = students.students;
+        populateSemesterFilter();
+        renderStudents(students);
+        renderStatistics();
+    } catch (e) {
+        document.getElementById('studentContainer').innerHTML = "Error loading student data.";
+        console.error(e);
+    }
+}
+
+function populateSemesterFilter() {
+    const semesters = [...new Set(students.map(s => s.semester))];
+    const filter = document.getElementById('semesterFilter');
+    semesters.forEach(s => {
+        const option = document.createElement('option');
+        option.value = s;
+        option.textContent = s;
+        filter.appendChild(option);
+    });
+}
+
+function renderStudents(data) {
+    const container = document.getElementById('studentContainer');
+    container.innerHTML = '';
+    data.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'student-card';
+        if (s.gpa > 3.5) card.classList.add('highlight');
+        card.innerHTML = `
+            <h3>${s.name}</h3>
+            <p>Email: ${s.email}</p>
+            <p>GPA: ${s.gpa}</p>
+            <p>Semester: ${s.semester}</p>
+            <p>Courses: ${s.courses.length}</p>
+            <button onclick='showDetail(${s.id})'>View Details</button>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function filterStudents() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const semester = document.getElementById('semesterFilter').value;
+    const filtered = students.filter(s => 
+        s.name.toLowerCase().includes(search) && 
+        (semester === '' || s.semester === semester)
+    );
+    renderStudents(filtered);
+}
+
+function renderStatistics() {
+    const stats = document.getElementById('statistics');
+    if (students.length === 0) return;
+    const gpas = students.map(s => s.gpa);
+    const avgGPA = (gpas.reduce((a,b)=>a+b,0)/gpas.length).toFixed(2);
+    const maxGPA = Math.max(...gpas);
+    const minGPA = Math.min(...gpas);
+    stats.innerHTML = `
+        <h3>Statistics</h3>
+        <p>Average GPA: ${avgGPA}</p>
+        <p>Highest GPA: ${maxGPA}</p>
+        <p>Lowest GPA: ${minGPA}</p>
+    `;
+}
+
+function showDetail(id) {
+    const student = students.find(s => s.id === id);
+    if (!student) return;
+    document.getElementById('detailName').textContent = student.name;
+    document.getElementById('detailEmail').textContent = "Email: " + student.email;
+    document.getElementById('detailSemester').textContent = "Semester: " + student.semester;
+    document.getElementById('detailGPA').textContent = "GPA: " + student.gpa;
+
+    let totalCredits = student.courses.reduce((a,b)=>a+b.credits,0);
+    document.getElementById('detailTotalCredits').textContent = "Total Credits: " + totalCredits;
+
+    const tbody = document.querySelector('#courseTable tbody');
+    tbody.innerHTML = '';
+    student.courses.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${c.code}</td><td>${c.name}</td><td>${c.grade}</td><td>${c.credits}</td>`;
+        tbody.appendChild(tr);
+    });
+
+    const gradeCount = {A:0,B:0,C:0};
+    student.courses.forEach(c=>{
+        if(c.grade>=80) gradeCount.A++;
+        else if(c.grade>=65) gradeCount.B++;
+        else gradeCount.C++;
+    });
+    document.getElementById('gradeDistribution').textContent =
+        `Grade Distribution: A=${gradeCount.A}, B=${gradeCount.B}, C=${gradeCount.C}`;
+
+    document.getElementById('detailView').classList.remove('hidden');
+}
+
+function closeDetail() {
+    document.getElementById('detailView').classList.add('hidden');
+}
+
+loadStudents();
+</script>
+
+</body>
+</html>
